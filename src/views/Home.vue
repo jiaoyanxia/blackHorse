@@ -12,26 +12,39 @@
       </template>
     </van-nav-bar>
     <van-tabs v-model="active" sticky offset-top="1.23rem">
-  <van-tab title="标签 1">内容 1</van-tab>
-  <van-tab title="标签 2">内容 2</van-tab>
-  <van-tab title="标签 3">内容 3</van-tab>
-  <van-tab title="标签 4">内容 4</van-tab>
-  <van-tab title="标签 5">内容 5</van-tab>
-  <van-tab title="标签 6">内容 6</van-tab>
-  <van-tab title="标签 7">内容 7</van-tab>
-  <van-tab title="标签 8">内容 8</van-tab>
-</van-tabs>
-<van-icon name="plus" size="16" class="plus" />
+      <van-tab v-for="item in userChannel" :title="item.name" :key="item.id">
+        <art-list :channelId="item.id"></art-list>
+      </van-tab>
+    </van-tabs>
+    <van-icon name="plus" size="16" class="plus" />
   </div>
 </template>
 
 <script>
+import { getUserChannelAPI } from '../api/homeAPI'
+import ArtList from '@/components/ArticleList/ArticleList.vue'
 export default {
   name: 'Home',
   data () {
     return {
-      active: 0
+      active: 0,
+      userChannel: []
     }
+  },
+  methods: {
+    async initUserChannel () {
+      const { data: res } = await getUserChannelAPI()
+      console.log(res)
+      if (res.message === 'OK') {
+        this.userChannel = res.data.channels
+      }
+    }
+  },
+  components: {
+    ArtList
+  },
+  created () {
+    this.initUserChannel()
   }
 }
 </script>
@@ -42,9 +55,9 @@ export default {
   padding-top: 46px;
   padding-bottom: 50px;
   // logo 样式
-    .logo {
+  .logo {
     height: 80%;
-    }
+  }
 }
 .plus {
   position: fixed;
