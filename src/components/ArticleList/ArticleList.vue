@@ -1,21 +1,24 @@
 <template>
   <div>
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh" :disabled="finished">
+    <van-pull-refresh
+      v-model="isLoading"
+      @refresh="onRefresh"
+      :disabled="finished">
       <van-list
         v-model="loading"
         :finished="finished"
         finished-text="没有更多了"
         @load="onLoad"
-        :immediate-check="false"
-      >
+        :immediate-check="false">
         <!-- 循环渲染文章的列表 -->
         <article-item
-          v-for="(item) in artlist"
+          v-for="item in artlist"
           :key="item.art_id"
           :article="item"
-        ></article-item>
+          @remove-article="removeArticle">
+          </article-item>
       </van-list>
-    </van-pull-refresh >
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -46,7 +49,6 @@ export default {
       // 请求 API 接口
       const { data: res } = await getArtListAPI(this.channelId, this.timestamp)
       if (res.message === 'OK') {
-        console.log(res)
         // 为时间戳重新赋值
         this.timestamp = res.data.pre_timestamp
         if (isRefresh) {
@@ -77,6 +79,10 @@ export default {
     onRefresh () {
       console.log('触发了下拉刷新')
       this.initArtList(true)
+    },
+    removeArticle (id) {
+      console.log('你要删除的文章ID:', id)
+      this.artlist = this.artlist.filter(item => item.art_id !== id)
     }
   },
   created () {

@@ -39,11 +39,14 @@
         </div>
       </template>
     </van-cell>
-    <van-action-sheet v-model="show" cancel-text="取消" :closeable="false" @closed="isFirst = true">
+    <van-action-sheet
+      v-model="show"
+      cancel-text="取消"
+      :closeable="false"
+      @closed="isFirst = true"
+      get-container="body"
+    >
       <div class="content" v-if="isFirst">
-        <!-- <van-cell title="aaa" clickable class="center-title" />
-        <van-cell title="aaa" clickable class="center-title" />
-        <van-cell title="aaa" clickable class="center-title" /> -->
         <van-cell
           :title="item.name"
           clickable
@@ -54,13 +57,28 @@
         />
       </div>
       <div v-else>
-        <van-cell title="返回" clickable title-class="center-title" @click="isFirst = true"/>
+        <van-cell
+          title="返回"
+          clickable
+          title-class="center-title"
+          @click="isFirst = true"
+        />
+        <van-cell
+          :title="item.label"
+          clickable
+          title-class="center-title"
+          v-for="item in reports"
+          :key="item.type"
+          @click="reportArticle(item.type)"
+        />
       </div>
     </van-action-sheet>
   </div>
 </template>
 
 <script>
+import reports from '@/api/reports'
+import { dislikeArticleAPI, reportsArticleAPI } from '@/api/homeAPI.js'
 export default {
   name: 'ArticleItem',
   props: {
@@ -79,23 +97,42 @@ export default {
         { name: '不感兴趣' },
         { name: '反馈垃圾内容' },
         { name: '拉黑作者' }
-      ]
+      ],
+      reports
     }
   },
   methods: {
-    onCellClick (name) {
+    async onCellClick (name) {
       if (name === '不感兴趣') {
-        console.log('不感兴趣')
+        const { data: res } = await dislikeArticleAPI(this.article.art_id)
+        console.log(res)
+        if (res.message === 'OK') {
+          // 炸楼的操作，触发自定义的事件，将文章 id 发送给父组件
+          this.$emit('remove-article', this.article.art_id)
+        }
         this.show = false
       }
       if (name === '拉黑作者') {
-        console.log('拉黑作者')
         this.show = false
       } else if (name === '反馈垃圾内容') {
         // 二级反馈面板
         this.isFirst = false
       }
+    },
+    async reportArticle (type) {
+      // 1. 发起举报文章的请求
+      const { data: res } = await reportsArticleAPI(this.article.art_id, type)
+      console.log(res)
+      // 2. 炸楼操作，触发自定义事件，把文章 Id 发送给父组件
+      if (res.message === 'OK') {
+        this.$emit('remove-article', this.article.art_id)
+        // 3. 关闭动作面板
+        this.show = false
+      }
     }
+  },
+  created () {
+    console.log(this.article.art_id)
   }
 }
 </script>

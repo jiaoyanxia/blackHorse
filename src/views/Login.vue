@@ -67,6 +67,7 @@ export default {
         console.log(res)
         // TODO2：登录成功后，跳转到主页
         this.updateTokenInfo(res.data)
+        this.$router.push('/')
       }
     }
   }
