@@ -57,12 +57,12 @@
         />
       </div>
       <div v-else>
-        <van-cell
+        <!-- <van-cell
           title="返回"
           clickable
           title-class="center-title"
           @click="isFirst = true"
-        />
+        /> -->
         <van-cell
           :title="item.label"
           clickable
@@ -130,9 +130,6 @@ export default {
         this.show = false
       }
     }
-  },
-  created () {
-    console.log(this.article.art_id)
   }
 }
 </script>

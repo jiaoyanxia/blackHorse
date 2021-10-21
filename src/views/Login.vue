@@ -53,7 +53,9 @@ export default {
           }
         ],
         // 密码的校验规则
-        code: [{ required: true, message: '请填写您的密码', trigger: 'onBlur' }]
+        code: [
+          { required: true, message: '请填写您的密码', trigger: 'onBlur' }
+        ]
       }
     }
   },
@@ -68,6 +70,7 @@ export default {
         // TODO2：登录成功后，跳转到主页
         this.updateTokenInfo(res.data)
         this.$router.push('/')
+        // const url = window.location.hash.split('?')[1].split('=')[1]
       }
     }
   }

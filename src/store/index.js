@@ -26,6 +26,13 @@ export default new Vuex.Store({
     },
     saveStateToStorage (state) {
       localStorage.setItem('state', JSON.stringify(state))
+    },
+    cleanTokenInfo (state) {
+      state.tokenInfo = {
+        token: '',
+        refresh_token: ''
+      }
+      localStorage.removeItem('state')
     }
   },
   actions: {
