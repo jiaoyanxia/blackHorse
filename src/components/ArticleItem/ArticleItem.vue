@@ -35,7 +35,7 @@
             {{ article.pubdate | dateFormat }}</span
           >
           <!-- 关闭按钮 -->
-          <van-icon name="cross" @click.stop="show = true" />
+          <van-icon name="cross" @click.stop="show = true" v-if="closable"/>
         </div>
       </template>
     </van-cell>
@@ -57,12 +57,6 @@
         />
       </div>
       <div v-else>
-        <!-- <van-cell
-          title="返回"
-          clickable
-          title-class="center-title"
-          @click="isFirst = true"
-        /> -->
         <van-cell
           :title="item.label"
           clickable
@@ -70,6 +64,12 @@
           v-for="item in reports"
           :key="item.type"
           @click="reportArticle(item.type)"
+        />
+        <van-cell
+          title="返回"
+          clickable
+          title-class="center-title"
+          @click="isFirst = true"
         />
       </div>
     </van-action-sheet>
@@ -86,6 +86,12 @@ export default {
     article: {
       type: Object, // 数据类型
       required: true // 必填项
+    },
+    // 是否展示关闭按钮
+    closable: {
+      type: Boolean,
+      // 默认值为 true，表示展示关闭按钮
+      default: true
     }
   },
   data () {

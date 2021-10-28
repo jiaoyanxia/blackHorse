@@ -5,6 +5,8 @@ import Login from '@/views/Login.vue'
 import Main from '@/views/Main.vue'
 import Home from '@/views/Home.vue'
 import User from '@/views/User.vue'
+import Search from '@/views/Search.vue'
+import SearchResult from '@/views/SearchResult.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,6 +23,17 @@ const routes = [
       { path: '', component: Home, name: 'home' },
       { path: '/user', component: User, name: 'user' }
     ]
+  },
+  {
+    path: '/search',
+    component: Search,
+    name: 'search'
+  },
+  {
+    // 搜索结果页
+    path: '/search/:kw',
+    component: SearchResult,
+    name: 'search-result'
   }
 ]
 
