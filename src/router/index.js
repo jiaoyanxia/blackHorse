@@ -7,6 +7,7 @@ import Home from '@/views/Home.vue'
 import User from '@/views/User.vue'
 import Search from '@/views/Search.vue'
 import SearchResult from '@/views/SearchResult.vue'
+import ArticleDetail from '@/views/ArticleDetail.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -34,6 +35,13 @@ const routes = [
     path: '/search/:kw',
     component: SearchResult,
     name: 'search-result'
+  },
+  {
+    // 搜索结果页
+    path: '/article/:id',
+    component: ArticleDetail,
+    name: 'art-deltail',
+    props: true
   }
 ]
 

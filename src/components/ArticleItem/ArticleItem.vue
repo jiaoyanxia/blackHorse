@@ -1,5 +1,5 @@
 <template>
-  <div id="ArticleItem">
+  <div id="ArticleItem" @click="$router.push('/article/' + article.art_id)">
     <van-cell>
       <!-- 标题区域的插槽 -->
       <template #title>
