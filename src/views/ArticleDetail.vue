@@ -76,6 +76,9 @@
         >
       </div>
     </div>
+
+    <!-- 文章的评论组件 -->
+    <art-cmt :art-id='id'></art-cmt>
   </div>
 </template>
 
@@ -87,6 +90,8 @@ import {
   addLikeAPI,
   delLikeAPI,
 } from "@/api/articleAPI.js";
+// 评论模块
+import ArtCmt from "@/components/ArtCmt/ArtCmt.vue";
 export default {
   name: "ArticleDetail",
   props: ["id"],
@@ -98,10 +103,10 @@ export default {
   methods: {
     async initArticle() {
       const { data: res } = await getArticleDetailAPI(this.id);
-      console.log(res);
+      // console.log(res);
       if (res.message === "OK") {
         this.article = res.data;
-        console.log(this.article);
+        // console.log(this.article);
       }
     },
     // 关注作者
@@ -152,6 +157,9 @@ export default {
   },
   created() {
     this.initArticle();
+  },
+  components: {
+    ArtCmt,
   },
 };
 </script>
