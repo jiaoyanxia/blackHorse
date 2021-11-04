@@ -17,3 +17,13 @@ export const exchangeTokenAPI = res => {
     }
   })
 }
+
+// 请求用户基本信息的 API
+export const getUserInfoAPI = () => {
+  return request.get('/v1_0/user')
+}
+
+// 请求用户简介信息的 API
+export const getUserProfileAPI = () => {
+  return request.get('/v1_0/user/profile')
+}

@@ -251,7 +251,7 @@ export default {
 }
 // 发布评论的盒子 - 1
 .add-cmt-box {
-  position: fixed;
+  // position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;

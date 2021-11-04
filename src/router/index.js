@@ -8,6 +8,7 @@ import User from '@/views/User.vue'
 import Search from '@/views/Search.vue'
 import SearchResult from '@/views/SearchResult.vue'
 import ArticleDetail from '@/views/ArticleDetail.vue'
+import UserEdit from '@/views/UserEdit.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -42,6 +43,11 @@ const routes = [
     component: ArticleDetail,
     name: 'art-deltail',
     props: true
+  },
+  {
+    path: '/user/edit',
+    component: UserEdit,
+    name: 'user-edit'
   }
 ]
 
