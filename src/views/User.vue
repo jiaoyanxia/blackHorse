@@ -3,7 +3,7 @@
     <!-- 用户基本信息面板 -->
     <div class="user-card">
       <!-- 用户头像、姓名 -->
-      <van-cell>
+      <van-cell icon="chat-o" title="小思同学" is-link to="/chat">
         <!-- 使用 title 插槽来自定义标题 -->
         <template #icon>
           <img :src="userInfo.photo" alt="" class="avatar">
@@ -35,7 +35,7 @@
     <!-- 操作面板 -->
     <van-cell-group class="action-card">
       <van-cell icon="edit" title="编辑资料" is-link @click="$router.push({name:'user-edit'})"/>
-      <van-cell icon="chat-o" title="小思同学" is-link />
+      <van-cell icon="chat-o" title="小思同学" is-link @click="$router.push('/chat')"/>
       <van-cell icon="warning-o" title="退出登录" is-link @click="logout" />
     </van-cell-group>
   </div>

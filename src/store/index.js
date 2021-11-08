@@ -74,6 +74,17 @@ export default new Vuex.Store({
       }
     }
   },
+  getters: {
+    // 用户头像计算属性
+    userAvatar (state){
+      let imgSrc = 'https://i.loli.net/2021/06/18/2ZJ9RIP1vUlQs4D.jpg'
+      if (state.userInfo.photo) {
+        imgSrc = state.userInfo.photo
+      }
+
+      return imgSrc
+    }
+  },
   modules: {
   }
 })

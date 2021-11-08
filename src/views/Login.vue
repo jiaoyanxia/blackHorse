@@ -69,8 +69,11 @@ export default {
         console.log(res)
         // TODO2：登录成功后，跳转到主页
         this.updateTokenInfo(res.data)
-        this.$router.push('/')
+        // this.$router.push('/') //old
         // const url = window.location.hash.split('?')[1].split('=')[1]
+        const navPath = this.$route.query.pre || '/'
+        // this.$router.push('/') //old
+        this.$router.replace(navPath)
       }
     }
   }
